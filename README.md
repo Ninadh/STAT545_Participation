@@ -1,4 +1,4 @@
-# Stat545_md_explorer
+# explorer
 
 ## A repository for exploring version control and markdown.
 
