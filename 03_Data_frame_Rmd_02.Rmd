@@ -1,7 +1,7 @@
 ---
 title: "03_Data_Frame_Exp_Rmd"
 output:
-  html_document:
+  github_document:
   theme: cerulean
   number_section: true
 ---
