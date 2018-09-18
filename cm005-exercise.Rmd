@@ -7,6 +7,12 @@ output:
 
 **Optional, but recommended startup**:
 
+```{r}
+library(gapminder)
+library(tidyverse)
+
+```
+
 Change the file output to both html and md _documents_ (not notebook).
 
 # Intro to `dplyr` syntax
@@ -18,22 +24,59 @@ Change the file output to both html and md _documents_ (not notebook).
 ## `select()`
 
 1. Make a data frame containing the columns `year`, `lifeExp`, `country` from the gapminder data, in that order.
+```{r}
+select(gapminder, year, lifeExp, country)
+```
+
 
 2. Select all variables, from `country` to `lifeExp`. 
 
+```{r}
+select (gapminder, country:lifeExp)
+```
+
+
 3. Select all variables, except `lifeExp`.
+
+```{r}
+select(gapminder, -lifeExp)
+```
+
 
 4. Put `continent` first. Hint: use the `everything()` function.
 
+```{r}
+select(gapminder, continent, everything())
+```
+
+
 5. Rename `continent` to `cont`.
+
+```{r}
+rename(gapminder, cont-continent)
+```
+
 
 ## `arrange()`
 
 1. Order by year.
+```{r}
+arrange(gapminder, lifeExp)
+```
+
 
 2. Order by year, in descending order.
+```{r}
+arrange (gapminder, desc(year))
+```
+
 
 3. Order by year, then by life expectancy.
+```{r}
+arrange(gapminder, year, lifeExp)
+```
+
+
 
 ## Piping, `%>%`
 
@@ -42,6 +85,18 @@ Note: think of `%>%` as the word "then"!
 1. Combine `select()` Task 1 with `arrange()` Task 3.
 
 ## `filter()`
+
+```{r}
+gapminder %>%
+  select(year, lifeExp, country) %>%
+  arrange(year, lifeExp)
+```
+
+```{r}
+gapminder %>%
+  filter(pop > 100000000)
+```
+
 
 1. Only take data with population greater than 100 million.
 
@@ -75,6 +130,18 @@ Your task is to use metaprogramming to check whether a response (like the one ab
 # Relational/Comparison and Logical Operators in R
 
 1. Find all entries of Canada and Algeria occuring in the '60s. 
+
+```{r}
+gapminder %>%
+  filter((country == "Canada" | country == "Algeria") & year >=1960 & year < 1970)
+```
+
+```{r}
+gapminder %>%
+  filter((country == "Canada" | country == "Algeria") & year >=1960 & year < 1970)
+gaominder %>%
+  filter(country %in% c ("Candanda, "Algeria"), year >= 1960, year < 1970)
+```
 
 2. Find all entries of Canada, and entries of Algeria occuring in the '60s. 
 3. Find all entries _not_ including Canada and Algeria.
