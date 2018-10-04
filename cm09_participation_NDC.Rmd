@@ -111,8 +111,11 @@ Read in the tidy LOTR data (despite having just made it):
 lotr_tidy <- read_csv("https://raw.githubusercontent.com/jennybc/lotrtidy/
 master/data/lotr_tidy.csv")
 ```
+
 Get word counts across "Race". Then try "Gender".
+
 ```{r}
+lotr_tidy
 spread(lotr_tidy, key = "Race", value = "Words")
 ```
 Now try combining race and gender. Use `unite()` from `tidyr` instead of `paste()`.
