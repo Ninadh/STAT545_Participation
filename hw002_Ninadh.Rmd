@@ -1,0 +1,99 @@
+---
+title: "hw_02_Ninadh"
+author: "Ninadh"
+date: "September 25, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(gapminder)
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+ggplot(gapminder, aes(x=continent, y=gdpPercap)) +
+  geom_point()+
+  scale_y_log10()
+```
+
+```{r}
+ggplot(gapminder, aes(x=lifeExp, y=gdpPercap)) +
+  geom_point(alpha=0.5)+
+  scale_y_log10()
+```
+
+```{r}
+ggplot(gapminder, aes(x=continent, y=gdpPercap)) +
+  geom_point(alpha=0.2)+
+  geom_boxplot(alpha=0.5)+
+  scale_y_log10()
+```
+
+```{r}
+ggplot(gapminder, aes(gdpPercap)) +
+  geom_histogram()+
+  stat_bin(bins = 50)+
+  scale_y_log10()
+```
+
+```{r}
+gapminder %>%
+  filter(country=="Bangladesh") %>%
+  ggplot(aes(lifeExp, gdpPercap))+
+  geom_point()+
+  geom_line()
+```
+
+```{r}
+gapminder %>%
+  filter(country== c("Bangladesh", "Afghanistan"))
+```
+
+```{r}
+gapminder %>%
+  filter(country== c("Bangladesh", "Afghanistan")) %>%
+  ggplot(aes(lifeExp, year)) +
+  geom_point(aes(fill="Bangladesh")) +
+  geom_point(aes(fill="Afghanistan"))
+```
+
+
+```{r}
+gapminder %>%
+  filter(country== c("Bangladesh", "Afghanistan")) %>%
+  ggplot(aes(lifeExp))+
+  geom_histogram()
+```
+
+```{r}
+gapminder %>%
+  filter(country== c("Bangladesh", "Afghanistan")) %>%
+  ggplot(aes(lifeExp))+
+  geom_histogram(aes(fill="Bangladesh"))+
+  geom_histogram(aes(fill="Afghanistan"))
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

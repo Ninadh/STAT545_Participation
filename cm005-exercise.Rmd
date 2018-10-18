@@ -53,7 +53,7 @@ select(gapminder, continent, everything())
 5. Rename `continent` to `cont`.
 
 ```{r}
-rename(gapminder, cont-continent)
+rename.data.frame(gapminder, cont-continent)
 ```
 
 

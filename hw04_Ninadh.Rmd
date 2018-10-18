@@ -1,0 +1,96 @@
+---
+title: "hw04_Ninadh"
+author: "Ninadh"
+date: "October 15, 2018"
+output: html_document
+---
+```{r}
+library(gapminder)
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+```
+
+Tabulation of gapminder using knitr
+
+```{r}
+gapminder %>%
+  knitr::kable()
+```
+
+Data reshaping prompts
+
+Task 1: Activity 3, Compute some measure of life expectancy (mean? median? min? max?) for all possible combinations of continent and year.
+
+```{r}
+gapminder %>%
+  group_by(continent, year) %>%
+  summarise(mean = mean(lifeExp), median = median(lifeExp), minimum = min(lifeExp), maximum = max(lifeExp))
+```
+
+```{r}
+gapminder %>%
+  group_by(continent, year) %>%
+  summarise(mean = mean(lifeExp), median = median(lifeExp), minimum = min(lifeExp), maximum = max(lifeExp)) %>%
+  kable()
+```
+
+```{r}
+gapminder %>%
+  group_by(continent, year) %>%
+  summarise(mean = mean(lifeExp), median = median(lifeExp), minimum = min(lifeExp), maximum = max(lifeExp)) %>%
+  ggplot(aes(year, mean)) +
+  geom_point(aes(colour = continent)) +
+  geom_line(aes(colour = continent))
+```
+
+
+
+```{r}
+gapminder %>%
+  group_by(continent, year) %>%
+  summarise(mean = mean(lifeExp), median = median(lifeExp), minimum = min(lifeExp), maximum = max(lifeExp)) %>%
+  ggplot(aes(continent, mean)) +
+  geom_bar()
+```
+
+The mean life expectancy of Oceania > Europe > Americas > Asia > Africa over time. The life expectancy of Africa is interesting because it plateaued from late 80s to early 2000.
+
+
+Join Prompts
+
+Task 2: Activity #1
+
+```{r}
+WorldPhones
+```
+
+```{r}
+#number of counties in the continents
+continent <- c("Africa", "Asia", "Europe", "Oceania", "Americas")
+n_country <- c(54,50,51,25,34)
+```
+
+```{r}
+data.frame(continent, n_country)
+```
+
+```{r}
+new_data <- data.frame(continent, n_country)
+left_join(gapminder, new_data)
+```
+
+```{r}
+left_join(gapminder, new_data) %>%
+  ggplot(aes(continent, n_country)) +
+  geom_point(aes(colour = continent, size = 50))
+```
+
+
+
+
+
+```{r}
+left_join(gapminder, new_data) %>%
+  ggplot(aes(continent, n_country)) +
+  geom_bar()

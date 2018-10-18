@@ -7,6 +7,7 @@ output:
 
 **Optional, but recommended startup**:
 
+
 Change the file output to both html and md _documents_ (not notebook).
 
 # Intro to `dplyr` syntax
