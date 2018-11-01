@@ -260,7 +260,7 @@ plot_ly(gapminder,
 plot_ly(gapminder, 
         x = ~gdpPercap, 
         y = ~lifeExp, 
-        z = FILL_THIS_IN,
+        z = ~pop,
         type = "scatter3d",
         mode = "markers",
         opacity = 0.2)
