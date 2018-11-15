@@ -1,22 +1,37 @@
-library(shiny)
 
-# Define UI for application that draws a histogram
+
+library("shiny")
+library(tidyr)
+bcl <- read.csv("~/Desktop/STAT545/STAT545_Participation/bcl_ninadh/bcl-data.csv", stringsAsFactors = FALSE)
+
+
 ui <- fluidPage(
-  "test.",
-  "more text.",
-  tags$h1("level 1 header"),
-  h1("level 1 header, part 2"),
-  HTML("<h1>level 1 header part 3 <h1>"),
-  h1(em("level 1 header, part 2")),
-  br(),
-  h2("exploring what this is"),
-  p("exploring what this is part 2"),
-  a(href="http://stat545.com/Classroom/", "Link to STAT545")
+  titlePanel("BC Liquor price app", 
+                           windowTitle = "BCL app"),
+                sidebarLayout(
+                  sidebarPanel(sliderInput("priceInput", "Select your desired price range.",
+                                           min = 0, max = 100, value = c(15, 30), pre="$"),
+                  radioButtons("typeInput", "Select your beverage price range", 
+                               choices = c("Beer", "Refreshment", "Spirit", "Wine"),
+                               selected = "Wine")
+                  ),
+                  mainPanel(
+                    plotOutput("price_hist"),
+                    tableOutput("BCL_data")
+                )
+                )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-   
+  output$price_hist <- renderPlot({
+    bcl %>%
+      filter( Price < input$priceInput[2],
+             Price > input$priceInput[1]) %>%
+    ggplot(aes(Price)) +
+      geom_histogram ()
+    })
+  output$BCL_data <- renderTable(bcl)
 }
 
 # Run the application 
